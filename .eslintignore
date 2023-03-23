@@ -3,14 +3,8 @@ node_modules/
 
 # Temporary folders
 app/dist
-app/yarn.lock
-
 release/build
 
 # Temporary files
 package-lock.json
-.eslintcache
-
-app-config/
-
-av/*.pyc
+yarn.lock

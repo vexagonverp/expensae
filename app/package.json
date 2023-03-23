@@ -1,0 +1,9 @@
+{
+  "name": "expensae",
+  "version": "1.0.0",
+  "main": "./dist/main/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {}
+}
