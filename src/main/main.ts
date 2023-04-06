@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
+import { DEEPLINK } from './constants';
 import { getPreloadPath, getHtmlPath } from './utils';
 
 let mainWindow: BrowserWindow;
@@ -23,10 +24,12 @@ const createWindow = (): void => {
 };
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient('expensae', process.execPath, [path.resolve(process.argv[1])]);
+    app.setAsDefaultProtocolClient(DEEPLINK.NAME_SPACE, process.execPath, [
+      path.resolve(process.argv[1])
+    ]);
   }
 } else {
-  app.setAsDefaultProtocolClient('expensae');
+  app.setAsDefaultProtocolClient(DEEPLINK.NAME_SPACE);
 }
 const appInstanceLock = app.requestSingleInstanceLock();
 
