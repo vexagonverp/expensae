@@ -17,14 +17,14 @@ function getAssetsPath(fileName: string) {
   return path.resolve(__dirname, '../../../assets', fileName);
 }
 
-function getAVPath() {
+function getExtraPath() {
   if (process.env.NODE_ENV === 'production' && app.isPackaged === true) {
-    return path.resolve(process.resourcesPath, 'av');
+    return path.resolve(process.resourcesPath, 'extra');
   }
   if (process.env.NODE_ENV === 'production' && app.isPackaged === false) {
-    return path.resolve(__dirname, '../../../av');
+    return path.resolve(__dirname, '../../../extra');
   }
-  return path.resolve(__dirname, '../../../av');
+  return path.resolve(__dirname, '../../../extra');
 }
 
 function getHtmlPath(htmlFileName: string) {
@@ -62,7 +62,7 @@ function installExtensions() {
 export {
   isDebug,
   getAssetsPath,
-  getAVPath,
+  getExtraPath,
   getHtmlPath,
   getPreloadPath,
   installExtensions,
