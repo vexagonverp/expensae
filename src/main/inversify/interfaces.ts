@@ -140,3 +140,7 @@ export interface IElectronWrapper {
   getResourcesPath(): string;
   getApp(): App;
 }
+
+export interface IAuthServerService {
+  init(): void;
+}

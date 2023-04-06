@@ -86,7 +86,10 @@ export default defineConfig({
           build: {
             assetsDir: '',
             sourcemap: isDebug,
-            outDir: resolve('./app/dist/worker')
+            outDir: resolve('./app/dist/worker'),
+            rollupOptions: {
+              external: ['express']
+            }
           },
           plugins: [
             EnvironmentPlugin('all', { prefix: '' }),

@@ -2,6 +2,9 @@
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
 import { DEEPLINK } from './constants';
+import { IAuthServerService } from './inversify/interfaces';
+import dependencyInjector from './inversify/inversify.config';
+import TYPES from './inversify/types';
 import { getPreloadPath, getHtmlPath } from './utils';
 
 let mainWindow: BrowserWindow;
@@ -22,6 +25,11 @@ const createWindow = (): void => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 };
+
+const loadServerService = () => {
+  dependencyInjector.get<IAuthServerService>(TYPES.AuthServerService).init();
+};
+
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
     app.setAsDefaultProtocolClient(DEEPLINK.NAME_SPACE, process.execPath, [
@@ -46,6 +54,7 @@ if (!appInstanceLock) {
 
   // Create mainWindow, load the rest of the app, etc...
   app.whenReady().then(() => {
+    loadServerService();
     createWindow();
   });
 
