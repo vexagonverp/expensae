@@ -1,8 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
-import { DEEPLINK } from './constants';
-import { IAuthServerService } from './inversify/interfaces';
+import { IBasePayload } from 'src/shared/payloadInterface';
+import { DEEPLINK } from '../shared/constants';
+import { IAuthServerService, IElectronDeepLinkService } from './inversify/interfaces';
 import dependencyInjector from './inversify/inversify.config';
 import TYPES from './inversify/types';
 import { getPreloadPath, getHtmlPath } from './utils';
@@ -26,7 +27,7 @@ const createWindow = (): void => {
   mainWindow.webContents.openDevTools();
 };
 
-const loadServerService = () => {
+const initService = () => {
   dependencyInjector.get<IAuthServerService>(TYPES.AuthServerService).init();
 };
 
@@ -44,9 +45,18 @@ const appInstanceLock = app.requestSingleInstanceLock();
 if (!appInstanceLock) {
   app.quit();
 } else {
-  app.on('second-instance', () => {
+  app.on('second-instance', (_, commandLine) => {
     // Someone tried to run a second instance, we should focus our window.
     if (mainWindow) {
+      const url = commandLine.find((command) => command.startsWith(`${DEEPLINK.NAME_SPACE}://`));
+      if (url) {
+        const payload: IBasePayload = JSON.parse(
+          decodeURIComponent(url.slice(0, -1).replace(`${DEEPLINK.NAME_SPACE}://`, ''))
+        );
+        dependencyInjector
+          .get<IElectronDeepLinkService>(TYPES.ElectronDeepLinkService)
+          .processPayload(payload);
+      }
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
     }
@@ -54,13 +64,17 @@ if (!appInstanceLock) {
 
   // Create mainWindow, load the rest of the app, etc...
   app.whenReady().then(() => {
-    loadServerService();
+    initService();
     createWindow();
   });
 
-  app.on('open-url', (event) => {
-    // eslint-disable-next-line no-console
-    console.log(event);
+  app.on('open-url', (_, url) => {
+    const payload: IBasePayload = JSON.parse(
+      decodeURIComponent(url.slice(0, -1).replace(`${DEEPLINK.NAME_SPACE}://`, ''))
+    );
+    dependencyInjector
+      .get<IElectronDeepLinkService>(TYPES.ElectronDeepLinkService)
+      .processPayload(payload);
   });
 }
 

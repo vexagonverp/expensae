@@ -3,6 +3,7 @@
   "productName": "expensae",
   "version": "1.0.0",
   "description": "My Electron application description",
+  "type": "module",
   "main": "app/dist/main/main.js",
   "scripts": {
     "build": "yarn clean:dist && cross-env NODE_ENV=production ELECTRON_ENV=production vite build --config configs/vite.config.ts",

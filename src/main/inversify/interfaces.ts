@@ -9,6 +9,7 @@ import {
 } from 'fs';
 /* eslint-disable max-len */
 import { App } from 'electron';
+import { IBasePayload } from 'src/shared/payloadInterface';
 
 // ------------- NodeJS built-in ------------- //
 export interface IFileSystem {
@@ -143,4 +144,8 @@ export interface IElectronWrapper {
 
 export interface IAuthServerService {
   init(): void;
+}
+
+export interface IElectronDeepLinkService {
+  processPayload(payload: IBasePayload): void;
 }

@@ -28,7 +28,6 @@ export default class AuthServerService implements IAuthServerService {
       this.authServerWorker.once('exit', () => {
         setTimeout(this.startServer.bind(this), 200);
       });
-      this.authServerWorker.postMessage('start');
     }
   }
 }
