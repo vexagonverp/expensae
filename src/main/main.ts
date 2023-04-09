@@ -50,12 +50,16 @@ if (!appInstanceLock) {
     if (mainWindow) {
       const url = commandLine.find((command) => command.startsWith(`${DEEPLINK.NAME_SPACE}://`));
       if (url) {
-        const payload: IBasePayload = JSON.parse(
-          decodeURIComponent(url.slice(0, -1).replace(`${DEEPLINK.NAME_SPACE}://`, ''))
-        );
-        dependencyInjector
-          .get<IElectronDeepLinkService>(TYPES.ElectronDeepLinkService)
-          .processPayload(payload);
+        try {
+          const payload: IBasePayload = JSON.parse(
+            decodeURIComponent(url.slice(0, -1).replace(`${DEEPLINK.NAME_SPACE}://`, ''))
+          );
+          dependencyInjector
+            .get<IElectronDeepLinkService>(TYPES.ElectronDeepLinkService)
+            .processPayload(payload);
+        } catch (error) {
+          console.error(error);
+        }
       }
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
