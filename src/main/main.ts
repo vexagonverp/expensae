@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
-import { IBasePayload } from 'src/shared/payloadInterface';
 import { DEEPLINK } from '../shared/constants';
+import { IBasePayload } from '../shared/payloadInterface';
 import { IAuthServerService, IElectronDeepLinkService } from './inversify/interfaces';
 import dependencyInjector from './inversify/inversify.config';
 import TYPES from './inversify/types';

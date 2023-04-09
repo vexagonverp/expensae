@@ -14,3 +14,5 @@ package-lock.json
 app-config/
 
 av/*.pyc
+
+.env

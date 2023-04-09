@@ -9,7 +9,8 @@ import {
 } from 'fs';
 /* eslint-disable max-len */
 import { App } from 'electron';
-import { IBasePayload } from 'src/shared/payloadInterface';
+import { OAuth2Client } from 'google-auth-library';
+import { IBasePayload, IOauthToken } from '../../shared/payloadInterface';
 
 // ------------- NodeJS built-in ------------- //
 export interface IFileSystem {
@@ -148,4 +149,12 @@ export interface IAuthServerService {
 
 export interface IElectronDeepLinkService {
   processPayload(payload: IBasePayload): void;
+}
+
+export interface IBaseOAuthService {
+  processOAuthToken(token: IOauthToken): void;
+}
+
+export interface IGoogleOAuthService extends IBaseOAuthService {
+  getAuthClient(): OAuth2Client;
 }

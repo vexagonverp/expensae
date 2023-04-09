@@ -1,16 +1,18 @@
 import * as path from 'path';
 import express from 'express';
-import { AUTHSERVER, DEEPLINK } from 'src/shared/constants';
-import { IAuthServerPayload, PayloadType } from 'src/shared/payloadInterface';
+import { AUTHSERVER, DEEPLINK } from '../shared/constants';
+import { IAuthServerPayload, PayloadType, IOauthToken } from '../shared/payloadInterface';
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/oauth', (req, res) => {
+app.get('/oauth', async (req, res) => {
+  const response = await fetch(`${import.meta.env.VITE_OAUTH_TOKEN_URL}?code=${req.query.code}`);
+  const tokenData: IOauthToken = await response.json();
   const payload: IAuthServerPayload = {
     type: PayloadType.AUTH,
-    code: req.query.code as string
+    token: tokenData
   };
   res.redirect(301, `${DEEPLINK.NAME_SPACE}://${encodeURIComponent(JSON.stringify(payload))}`);
 });

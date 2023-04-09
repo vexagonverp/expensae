@@ -12,9 +12,9 @@
  */
 interface ImportMetaEnv {
   readonly VITE_PORT: number;
-  readonly VITE_AZURE_ACCOUNT_NAME: undefined | string;
-  readonly VITE_AZURE_ACCOUNT_KEY: undefined | string;
   readonly VITE_AUTO_UPDATE_INTERVAL: undefined | string;
+  readonly VITE_OAUTH_CLIENT_ID: undefined | string;
+  readonly VITE_OAUTH_TOKEN_URL: undefined | string;
 }
 
 interface ImportMeta {
