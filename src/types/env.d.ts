@@ -15,6 +15,7 @@ interface ImportMetaEnv {
   readonly VITE_AUTO_UPDATE_INTERVAL: undefined | string;
   readonly VITE_OAUTH_CLIENT_ID: undefined | string;
   readonly VITE_OAUTH_TOKEN_URL: undefined | string;
+  readonly VITE_OAUTH_SIGNIN_URL: undefined | string;
 }
 
 interface ImportMeta {

@@ -1,10 +1,27 @@
 import { GoogleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import { useState } from 'react';
+import ipcMsg from '../shared/ipcMsg';
 
-const App = () => (
-  <Button type="primary" icon={<GoogleOutlined />}>
-    Login
-  </Button>
-);
+const App = () => {
+  const [loading, setLoading] = useState(false);
+  const loginRequest = () => {
+    setLoading(true);
+    window.ipcChannel.sendAndReceive(ipcMsg.RendererMainRenderer.LOGIN_REQUEST)?.then(() => {
+      setLoading(false);
+    });
+  };
+  return (
+    <Button
+      type="primary"
+      loading={loading}
+      disabled={loading}
+      icon={<GoogleOutlined />}
+      onClick={() => loginRequest()}
+    >
+      Login
+    </Button>
+  );
+};
 
 export default App;

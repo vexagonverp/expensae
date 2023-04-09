@@ -7,6 +7,7 @@ import { IAuthServerService, IElectronDeepLinkService } from './inversify/interf
 import dependencyInjector from './inversify/inversify.config';
 import TYPES from './inversify/types';
 import { getPreloadPath, getHtmlPath } from './utils';
+import './service/communication/ipcService';
 
 let mainWindow: BrowserWindow;
 const createWindow = (): void => {
