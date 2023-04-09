@@ -1,9 +1,12 @@
-import { injectable } from 'inversify';
-import { IAuthServerPayload, IBasePayload, PayloadType } from 'src/shared/payloadInterface';
-import { IElectronDeepLinkService } from '../../inversify/interfaces';
+import { inject, injectable } from 'inversify';
+import { IAuthServerPayload, IBasePayload, PayloadType } from '../../../shared/payloadInterface';
+import TYPES from '../../inversify/types';
+import type { IElectronDeepLinkService, IGoogleOAuthService } from '../../inversify/interfaces';
 
 @injectable()
 export default class ElectronDeepLinkService implements IElectronDeepLinkService {
+  constructor(@inject(TYPES.OAuthService) private oAuthService: IGoogleOAuthService) {}
+
   processPayload(payload: IBasePayload) {
     switch (payload.type) {
       case PayloadType.AUTH: {
@@ -17,6 +20,7 @@ export default class ElectronDeepLinkService implements IElectronDeepLinkService
   }
 
   private processAuthPayload(payload: IAuthServerPayload) {
+    this.oAuthService.processOAuthToken(payload.token);
     return payload;
   }
 }

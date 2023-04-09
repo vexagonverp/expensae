@@ -58,14 +58,7 @@ export default defineConfig({
             sourcemap: isDebug,
             outDir: resolve('./app/dist/main'),
             rollupOptions: {
-              external: [
-                'electron',
-                'socket.io-client',
-                '@azure/storage-file-share',
-                'uuid',
-                'getmac',
-                ...builtinModules
-              ]
+              external: ['electron', ...builtinModules]
             }
           },
           plugins: [

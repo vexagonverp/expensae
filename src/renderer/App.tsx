@@ -1,12 +1,10 @@
+import { GoogleOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+
 const App = () => (
-  <div className="App">
-    <div className="App-header">
-      <h2>Welcome to React</h2>
-    </div>
-    <p className="App-intro">
-      To get started, edit <code>src/App.tsx</code> and save to reload.
-    </p>
-  </div>
+  <Button type="primary" icon={<GoogleOutlined />}>
+    Login
+  </Button>
 );
 
 export default App;

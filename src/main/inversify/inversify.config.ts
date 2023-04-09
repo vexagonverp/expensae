@@ -1,5 +1,6 @@
 import { Container } from 'inversify';
 import 'reflect-metadata';
+import GoogleOAuthService from '../service/google/googleOAuthService';
 import ElectronDeepLinkService from '../service/system/electronDeepLinkService';
 import ElectronWrapperService from '../service/system/electronWrapperService';
 import FileSystemService from '../service/system/fileSystemService';
@@ -10,6 +11,7 @@ import {
   IElectronDeepLinkService,
   IElectronWrapper,
   IFileSystem,
+  IGoogleOAuthService,
   IPath
 } from './interfaces';
 import TYPES from './types';
@@ -23,5 +25,6 @@ dependencyInjector
   .bind<IElectronDeepLinkService>(TYPES.ElectronDeepLinkService)
   .to(ElectronDeepLinkService);
 dependencyInjector.bind<IAuthServerService>(TYPES.AuthServerService).to(AuthServerService);
+dependencyInjector.bind<IGoogleOAuthService>(TYPES.OAuthService).to(GoogleOAuthService);
 
 export default dependencyInjector;
