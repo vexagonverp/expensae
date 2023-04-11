@@ -1,6 +1,6 @@
 import { GoogleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ipcMsg from '../shared/ipcMsg';
 
 const App = () => {
@@ -9,6 +9,13 @@ const App = () => {
     setLoading(true);
     window.ipcChannel.send(ipcMsg.RendererToMain.LOGIN_REQUEST);
   };
+
+  useEffect(() => {
+    window.ipcChannel.receive(ipcMsg.MainToRenderer.LOGIN_SUCCESS, () => {
+      setLoading(false);
+    });
+  });
+
   return (
     <Button
       type="primary"
