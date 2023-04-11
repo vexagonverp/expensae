@@ -174,4 +174,5 @@ export interface IBrowserWindowService {
   init(browserWindow: BrowserWindow): void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendToRenderer(channel: string, data: any): void;
+  getBrowserWindow(): BrowserWindow;
 }

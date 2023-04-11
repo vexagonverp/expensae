@@ -15,4 +15,8 @@ export default class BrowserWindowService implements IBrowserWindowService {
     if (!this.win?.webContents) return;
     this.win.webContents.send(channel, data);
   }
+
+  getBrowserWindow(): BrowserWindow {
+    return this.win;
+  }
 }

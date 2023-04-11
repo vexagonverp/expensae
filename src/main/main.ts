@@ -3,16 +3,19 @@ import path from 'path';
 import { app, BrowserWindow } from 'electron';
 import { DEEPLINK } from '../shared/constants';
 import { IBasePayload } from '../shared/payloadInterface';
-import { IAuthServerService, IElectronDeepLinkService } from './inversify/interfaces';
+import {
+  IAuthServerService,
+  IBrowserWindowService,
+  IElectronDeepLinkService
+} from './inversify/interfaces';
 import dependencyInjector from './inversify/inversify.config';
 import TYPES from './inversify/types';
 import { getPreloadPath, getHtmlPath } from './utils';
 import './service/communication/ipcService';
 
-let mainWindow: BrowserWindow;
 const createWindow = (): void => {
   // Create the browser window.
-  mainWindow = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
     icon: '../../assets/icons/256x256.png',
@@ -26,6 +29,7 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+  dependencyInjector.get<IBrowserWindowService>(TYPES.BrowserWindowService).init(mainWindow);
 };
 
 const initService = () => {
@@ -48,6 +52,9 @@ if (!appInstanceLock) {
 } else {
   app.on('second-instance', (_, commandLine) => {
     // Someone tried to run a second instance, we should focus our window.
+    const mainWindow = dependencyInjector
+      .get<IBrowserWindowService>(TYPES.BrowserWindowService)
+      .getBrowserWindow();
     if (mainWindow) {
       const url = commandLine.find((command) => command.startsWith(`${DEEPLINK.NAME_SPACE}://`));
       if (url) {
