@@ -8,7 +8,7 @@ import {
   WriteFileOptions
 } from 'fs';
 /* eslint-disable max-len */
-import { App } from 'electron';
+import { App, BrowserWindow } from 'electron';
 import { OAuth2Client } from 'google-auth-library';
 import { IBasePayload, IOauthToken } from '../../shared/payloadInterface';
 
@@ -157,4 +157,21 @@ export interface IBaseOAuthService {
 
 export interface IGoogleOAuthService extends IBaseOAuthService {
   getAuthClient(): OAuth2Client;
+}
+
+export interface IEventEmitter {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  on(event: string, listener: (...args: any[]) => void): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  once(event: string, listener: (...args: any[]) => void): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  off(event: string, listener: (...args: any[]) => void): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  emit(event: string, ...args: any[]): void;
+}
+
+export interface IBrowserWindowService {
+  init(browserWindow: BrowserWindow): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sendToRenderer(channel: string, data: any): void;
 }

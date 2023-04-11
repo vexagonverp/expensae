@@ -7,9 +7,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const loginRequest = () => {
     setLoading(true);
-    window.ipcChannel.sendAndReceive(ipcMsg.RendererMainRenderer.LOGIN_REQUEST)?.then(() => {
-      setLoading(false);
-    });
+    window.ipcChannel.send(ipcMsg.RendererToMain.LOGIN_REQUEST);
   };
   return (
     <Button

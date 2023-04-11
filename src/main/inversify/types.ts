@@ -4,7 +4,9 @@ const TYPES = {
   ElectronWrapper: Symbol.for('IElectronWrapper'),
   AuthServerService: Symbol.for('IAuthServerService'),
   ElectronDeepLinkService: Symbol.for('IElectronDeepLinkService'),
-  OAuthService: Symbol.for('IAuthService')
+  EventEmitterService: Symbol.for('IEventEmitterService'),
+  OAuthService: Symbol.for('IAuthService'),
+  BrowserWindowService: Symbol.for('IBrowserWindowService')
 };
 
 export default TYPES;

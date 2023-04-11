@@ -1,9 +1,7 @@
 const ipcMsg = {
-  RendererToMain: {},
+  RendererToMain: { LOGIN_REQUEST: 'LOGIN_REQUEST' },
   MainToRenderer: {},
-  RendererMainRenderer: {
-    LOGIN_REQUEST: 'LOGIN_REQUEST'
-  }
+  RendererMainRenderer: {}
 };
 
 export default ipcMsg;
