@@ -159,7 +159,7 @@ export interface IGoogleOAuthService extends IBaseOAuthService {
   getAuthClient(): OAuth2Client;
 }
 
-export interface IEventEmitter {
+export interface IEventEmitterService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   on(event: string, listener: (...args: any[]) => void): void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -173,6 +173,6 @@ export interface IEventEmitter {
 export interface IBrowserWindowService {
   init(browserWindow: BrowserWindow): void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sendToRenderer(channel: string, data: any): void;
+  sendToRenderer(channel: string, data?: any): void;
   getBrowserWindow(): BrowserWindow;
 }

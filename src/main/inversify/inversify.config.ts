@@ -13,7 +13,7 @@ import {
   IBrowserWindowService,
   IElectronDeepLinkService,
   IElectronWrapper,
-  IEventEmitter,
+  IEventEmitterService,
   IFileSystem,
   IGoogleOAuthService,
   IPath
@@ -29,7 +29,7 @@ dependencyInjector.bind<IElectronWrapper>(TYPES.ElectronWrapper).to(ElectronWrap
 dependencyInjector
   .bind<IElectronDeepLinkService>(TYPES.ElectronDeepLinkService)
   .to(ElectronDeepLinkService);
-dependencyInjector.bind<IEventEmitter>(TYPES.EventEmitterService).to(EventEmitterService);
+dependencyInjector.bind<IEventEmitterService>(TYPES.EventEmitterService).to(EventEmitterService);
 dependencyInjector.bind<IAuthServerService>(TYPES.AuthServerService).to(AuthServerService);
 dependencyInjector.bind<IGoogleOAuthService>(TYPES.OAuthService).to(GoogleOAuthService);
 

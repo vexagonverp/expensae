@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
-import { IEventEmitter } from '../../inversify/interfaces';
+import { IEventEmitterService } from '../../inversify/interfaces';
 
 @injectable()
-export default class EventEmitterService implements IEventEmitter {
+export default class EventEmitterService implements IEventEmitterService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private listeners: Record<string, ((...args: any[]) => void)[]> = {};
 
