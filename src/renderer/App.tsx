@@ -22,7 +22,7 @@ const App = () => {
       loading={loading}
       disabled={loading}
       icon={<GoogleOutlined />}
-      onClick={() => loginRequest()}
+      onClick={loginRequest}
     >
       Login
     </Button>

@@ -16,7 +16,7 @@ files:
 
 extraResources:
   - './assets/**'
-  - './extra/**'
+  - './public/**'
 
 directories:
   app: 'app'

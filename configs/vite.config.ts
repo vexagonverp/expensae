@@ -76,6 +76,7 @@ export default defineConfig({
           options.reload();
         },
         vite: {
+          publicDir: './src/worker/public',
           build: {
             assetsDir: '',
             sourcemap: isDebug,
