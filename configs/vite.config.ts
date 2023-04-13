@@ -82,7 +82,7 @@ export default defineConfig({
             sourcemap: isDebug,
             outDir: resolve('./app/dist/worker'),
             rollupOptions: {
-              external: ['express']
+              external: ['express', 'ejs']
             }
           },
           plugins: [

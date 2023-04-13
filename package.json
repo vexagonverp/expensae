@@ -38,6 +38,7 @@
     "@googleapis/sheets": "^4.0.2",
     "@reduxjs/toolkit": "^1.9.3",
     "antd": "^5.3.2",
+    "ejs": "^3.1.9",
     "electron": "^23.2.0",
     "electron-devtools-installer": "^3.2.0",
     "electron-log": "^4.4.8",

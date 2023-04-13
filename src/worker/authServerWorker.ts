@@ -1,11 +1,18 @@
 import * as path from 'path';
 import express from 'express';
 import { AUTHSERVER, DEEPLINK } from '../shared/constants';
-import { IAuthServerPayload, PayloadType, IOauthToken } from '../shared/payloadInterface';
+import {
+  IAuthServerPayload,
+  PayloadType,
+  IOauthToken,
+  IBasePayload
+} from '../shared/payloadInterface';
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname));
 
 app.get('/oauth', async (req, res) => {
   const response = await fetch(`${import.meta.env.VITE_OAUTH_TOKEN_URL}?code=${req.query.code}`);
@@ -14,7 +21,13 @@ app.get('/oauth', async (req, res) => {
     type: PayloadType.AUTH,
     token: tokenData
   };
-  res.redirect(301, `${DEEPLINK.NAME_SPACE}://${encodeURIComponent(JSON.stringify(payload))}`);
+  process.parentPort.postMessage(payload);
+  const openAppPayload: IBasePayload = {
+    type: PayloadType.OPEN
+  };
+  res.render('login-success.ejs', {
+    deeplink: `${DEEPLINK.NAME_SPACE}://${JSON.stringify(openAppPayload)}`
+  });
 });
 
 function startServer(port = AUTHSERVER.PORT) {
