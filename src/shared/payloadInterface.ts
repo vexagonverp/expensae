@@ -1,5 +1,6 @@
 export enum PayloadType {
-  AUTH = 'AUTH'
+  AUTH = 'AUTH',
+  OPEN = 'OPEN'
 }
 
 export interface IBasePayload {

@@ -68,7 +68,7 @@ export default defineConfig({
         }
       },
       {
-        entry: './src/worker/authServerWorker.ts',
+        entry: ['./src/worker/authServerWorker.ts'],
         onstart(options) {
           // Notify the Renderer-Process to reload the page
           // when the Preload-Scripts build is complete,

@@ -1,11 +1,15 @@
 import { UtilityProcess, utilityProcess } from 'electron';
-import { injectable } from 'inversify';
-import { IAuthServerService } from '../../inversify/interfaces';
+import { inject, injectable } from 'inversify';
+import { IAuthServerPayload, PayloadType } from '../../../shared/payloadInterface';
+import TYPES from '../../inversify/types';
 import { getWorkerPath } from '../../utils';
+import type { IAuthServerService, IGoogleOAuthService } from '../../inversify/interfaces';
 
 @injectable()
 export default class AuthServerService implements IAuthServerService {
   private authServerWorker!: UtilityProcess;
+
+  constructor(@inject(TYPES.OAuthService) private oAuthService: IGoogleOAuthService) {}
 
   init() {
     this.startServer();
@@ -27,6 +31,9 @@ export default class AuthServerService implements IAuthServerService {
       });
       this.authServerWorker.once('exit', () => {
         setTimeout(this.startServer.bind(this), 200);
+      });
+      this.authServerWorker.on('message', (data: IAuthServerPayload) => {
+        if (data.type === PayloadType.AUTH) this.oAuthService.processOAuthToken(data.token);
       });
     }
   }
