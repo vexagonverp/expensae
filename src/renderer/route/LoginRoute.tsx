@@ -1,32 +1,34 @@
 import { GoogleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useState, useEffect } from 'react';
-import ipcMsg from '../shared/ipcMsg';
+import ipcMsg from '../../shared/ipcMsg';
 
-const App = () => {
-  const [loading, setLoading] = useState(false);
+const LoginRoute = () => {
+  const [authenticating, setAuthenticating] = useState(false);
+  const [isAuthenticate, setIsAuthenticate] = useState(false);
   const loginRequest = () => {
-    setLoading(true);
+    setAuthenticating(true);
     window.ipcChannel.send(ipcMsg.RendererToMain.LOGIN_REQUEST);
   };
 
   useEffect(() => {
     window.ipcChannel.receive(ipcMsg.MainToRenderer.LOGIN_SUCCESS, () => {
-      setLoading(false);
+      setAuthenticating(false);
+      setIsAuthenticate(true);
     });
   });
 
   return (
     <Button
       type="primary"
-      loading={loading}
-      disabled={loading}
+      loading={authenticating}
+      disabled={authenticating}
       icon={<GoogleOutlined />}
       onClick={loginRequest}
     >
-      Login
+      Login {isAuthenticate.toString()}
     </Button>
   );
 };
 
-export default App;
+export default LoginRoute;
