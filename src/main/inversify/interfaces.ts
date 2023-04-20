@@ -153,6 +153,7 @@ export interface IElectronDeepLinkService {
 
 export interface IBaseOAuthService {
   processOAuthToken(token: IOauthToken): void;
+  checkOauthToken(): boolean;
 }
 
 export interface IGoogleOAuthService extends IBaseOAuthService {
@@ -182,4 +183,6 @@ export interface IElectronStore {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set(key: string, value?: any): void;
   delete(key: string): void;
+  encrypt(value: string): string;
+  decrypt(value: string): string;
 }
