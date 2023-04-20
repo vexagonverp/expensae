@@ -6,7 +6,8 @@ const TYPES = {
   ElectronDeepLinkService: Symbol.for('IElectronDeepLinkService'),
   EventEmitterService: Symbol.for('IEventEmitterService'),
   OAuthService: Symbol.for('IAuthService'),
-  BrowserWindowService: Symbol.for('IBrowserWindowService')
+  BrowserWindowService: Symbol.for('IBrowserWindowService'),
+  ElectronStore: Symbol.for('IElectronStore')
 };
 
 export default TYPES;

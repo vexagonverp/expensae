@@ -4,6 +4,7 @@ import EventEmitterService from '../service/communication/eventEmiterService';
 import GoogleOAuthService from '../service/google/googleOAuthService';
 import BrowserWindowService from '../service/system/browserWindowService';
 import ElectronDeepLinkService from '../service/system/electronDeepLinkService';
+import ElectronStoreService from '../service/system/electronStoreService';
 import ElectronWrapperService from '../service/system/electronWrapperService';
 import FileSystemService from '../service/system/fileSystemService';
 import PathService from '../service/system/pathService';
@@ -12,6 +13,7 @@ import {
   IAuthServerService,
   IBrowserWindowService,
   IElectronDeepLinkService,
+  IElectronStore,
   IElectronWrapper,
   IEventEmitterService,
   IFileSystem,
@@ -26,6 +28,7 @@ dependencyInjector.bind<IFileSystem>(TYPES.FileSystem).to(FileSystemService);
 dependencyInjector.bind<IPath>(TYPES.Path).to(PathService);
 
 dependencyInjector.bind<IElectronWrapper>(TYPES.ElectronWrapper).to(ElectronWrapperService);
+dependencyInjector.bind<IElectronStore>(TYPES.ElectronStore).to(ElectronStoreService);
 dependencyInjector
   .bind<IElectronDeepLinkService>(TYPES.ElectronDeepLinkService)
   .to(ElectronDeepLinkService);

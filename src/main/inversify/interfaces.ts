@@ -176,3 +176,10 @@ export interface IBrowserWindowService {
   sendToRenderer(channel: string, data?: any): void;
   getBrowserWindow(): BrowserWindow;
 }
+export interface IElectronStore {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  get(key: string, defaultValue?: any): any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  set(key: string, value?: any): void;
+  delete(key: string): void;
+}
