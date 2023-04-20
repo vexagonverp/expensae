@@ -1,7 +1,11 @@
 import { ipcMain, shell } from 'electron';
 import ipcMsg from '../../../shared/ipcMsg';
 import { MAIN_PROCESS_EVENT } from '../../constants';
-import { IBrowserWindowService, IEventEmitterService } from '../../inversify/interfaces';
+import {
+  IBrowserWindowService,
+  IEventEmitterService,
+  IGoogleOAuthService
+} from '../../inversify/interfaces';
 import dependencyInjector from '../../inversify/inversify.config';
 import TYPES from '../../inversify/types';
 
@@ -9,6 +13,7 @@ const eventEmitterService = dependencyInjector.get<IEventEmitterService>(TYPES.E
 const browserWindowService = dependencyInjector.get<IBrowserWindowService>(
   TYPES.BrowserWindowService
 );
+const googleOAuthService = dependencyInjector.get<IGoogleOAuthService>(TYPES.OAuthService);
 
 ipcMain.on(ipcMsg.RendererToMain.LOGIN_REQUEST, () => {
   shell.openExternal(import.meta.env.VITE_OAUTH_SIGNIN_URL || '');
@@ -17,3 +22,5 @@ ipcMain.on(ipcMsg.RendererToMain.LOGIN_REQUEST, () => {
 eventEmitterService.on(MAIN_PROCESS_EVENT.LOGIN_SUCCESS, () => {
   browserWindowService.sendToRenderer(ipcMsg.MainToRenderer.LOGIN_SUCCESS);
 });
+
+ipcMain.handle(ipcMsg.RendererMainRenderer.TOKEN_CHECK, () => googleOAuthService.checkOauthToken());

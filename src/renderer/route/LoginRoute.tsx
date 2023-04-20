@@ -16,6 +16,11 @@ const LoginRoute = () => {
       setAuthenticating(false);
       setIsAuthenticate(true);
     });
+    window.ipcChannel.sendAndReceive(ipcMsg.RendererMainRenderer.TOKEN_CHECK)?.then((result) => {
+      if (result) {
+        setIsAuthenticate(true);
+      }
+    });
   });
 
   return (
