@@ -1,11 +1,13 @@
 import { GoogleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ipcMsg from '../../shared/ipcMsg';
+import { REACT_ROUTE } from '../constants';
 
 const LoginRoute = () => {
   const [authenticating, setAuthenticating] = useState(false);
-  const [isAuthenticate, setIsAuthenticate] = useState(false);
+  const navigate = useNavigate();
   const loginRequest = () => {
     setAuthenticating(true);
     window.ipcChannel.send(ipcMsg.RendererToMain.LOGIN_REQUEST);
@@ -14,11 +16,11 @@ const LoginRoute = () => {
   useEffect(() => {
     window.ipcChannel.receive(ipcMsg.MainToRenderer.LOGIN_SUCCESS, () => {
       setAuthenticating(false);
-      setIsAuthenticate(true);
+      navigate(REACT_ROUTE.APP);
     });
     window.ipcChannel.sendAndReceive(ipcMsg.RendererMainRenderer.TOKEN_CHECK)?.then((result) => {
       if (result) {
-        setIsAuthenticate(true);
+        navigate(REACT_ROUTE.APP);
       }
     });
   });
@@ -31,7 +33,7 @@ const LoginRoute = () => {
       icon={<GoogleOutlined />}
       onClick={loginRequest}
     >
-      Login {isAuthenticate.toString()}
+      Login
     </Button>
   );
 };

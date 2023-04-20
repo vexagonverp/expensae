@@ -2,6 +2,8 @@ import { Layout } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { REACT_ROUTE } from './constants';
+import AppRoute from './route/AppRoute';
 import LoginRoute from './route/LoginRoute';
 
 const { Header, Content } = Layout;
@@ -14,7 +16,8 @@ root.render(
       <Content>
         <Router>
           <Routes>
-            <Route path="/" element={<LoginRoute />} />
+            <Route path={REACT_ROUTE.INDEX} element={<LoginRoute />} />
+            <Route path={REACT_ROUTE.APP} element={<AppRoute />} />
           </Routes>
         </Router>
       </Content>
