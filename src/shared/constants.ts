@@ -3,5 +3,7 @@ export const DEEPLINK = {
 };
 
 export const AUTHSERVER = {
-  PORT: 8719
+  PORT: 8719,
+  OAUTH_PATH: '/oauth',
+  LOGIN_SUCESS_PATH: '/login-success'
 };

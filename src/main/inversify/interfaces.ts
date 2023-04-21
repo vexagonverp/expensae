@@ -153,11 +153,12 @@ export interface IElectronDeepLinkService {
 
 export interface IBaseOAuthService {
   processOAuthToken(token: IOauthToken): void;
-  checkOauthToken(): boolean;
+  checkOAuthToken(): Promise<boolean>;
 }
 
 export interface IGoogleOAuthService extends IBaseOAuthService {
   getAuthClient(): OAuth2Client;
+  getOAuthUrl(): string;
 }
 
 export interface IEventEmitterService {

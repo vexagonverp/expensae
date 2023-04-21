@@ -1,5 +1,6 @@
 import * as path from 'path';
 import express from 'express';
+import { OAuth2Client } from 'google-auth-library';
 import { AUTHSERVER, DEEPLINK } from '../shared/constants';
 import {
   IAuthServerPayload,
@@ -8,29 +9,28 @@ import {
   IBasePayload
 } from '../shared/payloadInterface';
 
-enum ServerPath {
-  OAUTH_PATH = '/oauth',
-  LOGIN_SUCESS_PATH = '/login-success'
-}
-
 const app = express();
+const authClient = new OAuth2Client({
+  clientId: import.meta.env.VITE_OAUTH_CLIENT_ID,
+  clientSecret: import.meta.env.VITE_OAUTH_CLIENT_SECRET,
+  redirectUri: `http://127.0.0.1:${AUTHSERVER.PORT}${AUTHSERVER.OAUTH_PATH}`
+});
 
 app.use(express.static(path.join(__dirname)));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname));
 
-app.get(ServerPath.OAUTH_PATH, async (req, res) => {
-  const response = await fetch(`${import.meta.env.VITE_OAUTH_TOKEN_URL}?code=${req.query.code}`);
-  const tokenData: IOauthToken = await response.json();
+app.get(AUTHSERVER.OAUTH_PATH, async (req, res) => {
+  const tokenData: IOauthToken = (await authClient.getToken(req.query.code as string)).tokens;
   const payload: IAuthServerPayload = {
     type: PayloadType.AUTH,
     token: tokenData
   };
   process.parentPort.postMessage(payload);
-  res.redirect(ServerPath.LOGIN_SUCESS_PATH);
+  res.redirect(AUTHSERVER.LOGIN_SUCESS_PATH);
 });
 
-app.get(ServerPath.LOGIN_SUCESS_PATH, (_req, res) => {
+app.get(AUTHSERVER.LOGIN_SUCESS_PATH, (_req, res) => {
   const openAppPayload: IBasePayload = {
     type: PayloadType.OPEN
   };

@@ -16,11 +16,14 @@ const browserWindowService = dependencyInjector.get<IBrowserWindowService>(
 const googleOAuthService = dependencyInjector.get<IGoogleOAuthService>(TYPES.OAuthService);
 
 ipcMain.on(ipcMsg.RendererToMain.LOGIN_REQUEST, () => {
-  shell.openExternal(import.meta.env.VITE_OAUTH_SIGNIN_URL || '');
+  shell.openExternal(googleOAuthService.getOAuthUrl() || '');
 });
 
 eventEmitterService.on(MAIN_PROCESS_EVENT.LOGIN_SUCCESS, () => {
   browserWindowService.sendToRenderer(ipcMsg.MainToRenderer.LOGIN_SUCCESS);
 });
 
-ipcMain.handle(ipcMsg.RendererMainRenderer.TOKEN_CHECK, () => googleOAuthService.checkOauthToken());
+ipcMain.handle(ipcMsg.RendererMainRenderer.TOKEN_CHECK, async () => {
+  const result = await googleOAuthService.checkOAuthToken();
+  return Promise.resolve(result);
+});
