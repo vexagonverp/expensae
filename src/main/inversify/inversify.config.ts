@@ -2,6 +2,7 @@ import { Container } from 'inversify';
 import 'reflect-metadata';
 import EventEmitterService from '../service/communication/eventEmiterService';
 import GoogleOAuthService from '../service/google/googleOAuthService';
+import GoogleSheetService from '../service/google/googleSheetService';
 import BrowserWindowService from '../service/system/browserWindowService';
 import ElectronDeepLinkService from '../service/system/electronDeepLinkService';
 import ElectronStoreService from '../service/system/electronStoreService';
@@ -18,6 +19,7 @@ import {
   IEventEmitterService,
   IFileSystem,
   IGoogleOAuthService,
+  IGoogleSheetService,
   IPath
 } from './interfaces';
 import TYPES from './types';
@@ -35,5 +37,6 @@ dependencyInjector
 dependencyInjector.bind<IEventEmitterService>(TYPES.EventEmitterService).to(EventEmitterService);
 dependencyInjector.bind<IAuthServerService>(TYPES.AuthServerService).to(AuthServerService);
 dependencyInjector.bind<IGoogleOAuthService>(TYPES.OAuthService).to(GoogleOAuthService);
+dependencyInjector.bind<IGoogleSheetService>(TYPES.GoogleSheetService).to(GoogleSheetService);
 
 export default dependencyInjector;

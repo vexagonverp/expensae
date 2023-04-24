@@ -19,3 +19,7 @@ export interface IOauthToken {
 export interface IAuthServerPayload extends IBasePayload {
   token: IOauthToken;
 }
+
+export interface ISheetPayload {
+  sheetId: string;
+}

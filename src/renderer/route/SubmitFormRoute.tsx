@@ -1,7 +1,7 @@
 import { Button, Form, Input, Space } from 'antd';
 import { useState } from 'react';
 import ipcMsg from '../../shared/ipcMsg';
-import { SheetPayload } from '../interfaces';
+import { ISheetPayload } from '../../shared/payloadInterface';
 
 const enum ItemStatusState {
   BLANK = '',
@@ -12,9 +12,16 @@ const enum ItemStatusState {
 const SubmitFormRoute = () => {
   const [form] = Form.useForm();
   const [itemStatus, setItemStatus] = useState(ItemStatusState.BLANK);
-  const onFinish = (payload: SheetPayload) => {
+  const onFinish = (payload: ISheetPayload) => {
     setItemStatus(ItemStatusState.VALIDATING);
-    window.ipcChannel.sendAndReceive(ipcMsg.RendererMainRenderer.SHEET_ID, payload);
+    window.ipcChannel
+      .sendAndReceive(ipcMsg.RendererMainRenderer.SHEET_ID, payload)
+      ?.then(() => {
+        setItemStatus(ItemStatusState.SUCCESS);
+      })
+      .catch(() => {
+        setItemStatus(ItemStatusState.ERROR);
+      });
   };
   const { Item } = Form;
   const { Compact } = Space;

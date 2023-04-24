@@ -7,6 +7,7 @@ import {
   NoParamCallback,
   WriteFileOptions
 } from 'fs';
+import { sheets_v4 } from '@googleapis/sheets';
 /* eslint-disable max-len */
 import { App, BrowserWindow } from 'electron';
 import { OAuth2Client } from 'google-auth-library';
@@ -186,4 +187,8 @@ export interface IElectronStore {
   delete(key: string): void;
   encrypt(value: string): string;
   decrypt(value: string): string;
+}
+
+export interface IGoogleSheetService {
+  getWorkSheet(value: string): Promise<sheets_v4.Schema$Spreadsheet>;
 }

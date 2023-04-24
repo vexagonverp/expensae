@@ -7,7 +7,8 @@ const TYPES = {
   EventEmitterService: Symbol.for('IEventEmitterService'),
   OAuthService: Symbol.for('IAuthService'),
   BrowserWindowService: Symbol.for('IBrowserWindowService'),
-  ElectronStore: Symbol.for('IElectronStore')
+  ElectronStore: Symbol.for('IElectronStore'),
+  GoogleSheetService: Symbol.for('IGoogleSheetService')
 };
 
 export default TYPES;
