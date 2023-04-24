@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { REACT_ROUTE } from './constants';
-import AppRoute from './route/AppRoute';
 import LoginRoute from './route/LoginRoute';
+import SubmitFormRoute from './route/SubmitFormRoute';
 
 const { Header, Content } = Layout;
 
@@ -17,7 +17,7 @@ root.render(
         <Router>
           <Routes>
             <Route path={REACT_ROUTE.INDEX} element={<LoginRoute />} />
-            <Route path={REACT_ROUTE.APP} element={<AppRoute />} />
+            <Route path={REACT_ROUTE.SUBMIT_FORM} element={<SubmitFormRoute />} />
           </Routes>
         </Router>
       </Content>

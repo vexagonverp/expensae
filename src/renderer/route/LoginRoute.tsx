@@ -16,11 +16,11 @@ const LoginRoute = () => {
   useEffect(() => {
     window.ipcChannel.receive(ipcMsg.MainToRenderer.LOGIN_SUCCESS, () => {
       setAuthenticating(false);
-      navigate(REACT_ROUTE.APP);
+      navigate(REACT_ROUTE.SUBMIT_FORM);
     });
     window.ipcChannel.sendAndReceive(ipcMsg.RendererMainRenderer.TOKEN_CHECK)?.then((result) => {
       if (result) {
-        navigate(REACT_ROUTE.APP);
+        navigate(REACT_ROUTE.SUBMIT_FORM);
       }
     });
   });
