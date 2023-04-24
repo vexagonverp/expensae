@@ -33,7 +33,7 @@ const SubmitFormRoute = () => {
         <Item shouldUpdate>
           {({ getFieldsValue }) => {
             const { sheetId } = getFieldsValue();
-            const formIsComplete = sheetId;
+            const formIsComplete = sheetId && itemStatus !== ItemStatusState.VALIDATING;
             return (
               <Button type="primary" htmlType="submit" disabled={!formIsComplete}>
                 Submit
