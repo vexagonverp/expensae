@@ -175,6 +175,7 @@
       }
     ],
     "no-prototype-builtins": "error",
+    "no-param-reassign": [2, { "props": false }],
     "no-sequences": "error",
     "no-this-before-super": "error",
     "no-trailing-spaces": "error",
