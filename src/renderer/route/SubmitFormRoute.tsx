@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, Input, Divider } from 'antd';
 import { useState } from 'react';
 import ipcMsg from '../../shared/ipcMsg';
 import { ISheetPayload } from '../../shared/payloadInterface';
@@ -23,33 +23,44 @@ const SubmitFormRoute = () => {
         setItemStatus(ItemStatusState.ERROR);
       });
   };
+
   const { Item } = Form;
-  const { Compact } = Space;
+
   return (
-    <Compact style={{ width: '100%' }}>
-      <Form form={form} onFinish={onFinish}>
-        <Item
-          name="sheetId"
-          label="Google sheet's Id"
-          rules={[{ required: true }]}
-          hasFeedback
-          validateStatus={itemStatus}
-        >
-          <Input />
-        </Item>
-        <Item shouldUpdate>
-          {({ getFieldsValue }) => {
-            const { sheetId } = getFieldsValue();
-            const formIsComplete = sheetId && itemStatus !== ItemStatusState.VALIDATING;
-            return (
-              <Button type="primary" htmlType="submit" disabled={!formIsComplete}>
-                Submit
-              </Button>
-            );
-          }}
-        </Item>
-      </Form>
-    </Compact>
+    <Form form={form} onFinish={onFinish}>
+      <Divider orientation="left">Create expenses sheet</Divider>
+      <Item shouldUpdate>
+        {() => {
+          const formIsComplete = itemStatus !== ItemStatusState.VALIDATING;
+          return (
+            <Button type="primary" htmlType="submit" disabled={!formIsComplete}>
+              Create new sheet
+            </Button>
+          );
+        }}
+      </Item>
+      <Divider orientation="left">or import existing sheet</Divider>
+      <Item
+        name="sheetId"
+        label="Google sheet's Id"
+        rules={[{ required: true }]}
+        hasFeedback
+        validateStatus={itemStatus}
+      >
+        <Input />
+      </Item>
+      <Item shouldUpdate>
+        {({ getFieldsValue }) => {
+          const { sheetId } = getFieldsValue();
+          const formIsComplete = sheetId && itemStatus !== ItemStatusState.VALIDATING;
+          return (
+            <Button type="primary" htmlType="submit" disabled={!formIsComplete}>
+              Submit
+            </Button>
+          );
+        }}
+      </Item>
+    </Form>
   );
 };
 
