@@ -4597,6 +4597,16 @@ rc-pagination@~3.3.1:
     "@babel/runtime" "^7.10.1"
     classnames "^2.2.1"
 
+rc-picker@^3.7.4:
+  version "3.7.4"
+  resolved "https://registry.yarnpkg.com/rc-picker/-/rc-picker-3.7.4.tgz#3aaa074f71eebb1bd2d2e5e78dd64d6fe6056ca4"
+  integrity sha512-V7oztqbIDCLjgOTHZ8ke68VN9IeQIwOpCMGjrsxuOhlq76xe9C21lePe+H0H29Obc/8s0a3+plk3cRWq4g7InA==
+  dependencies:
+    "@babel/runtime" "^7.10.1"
+    "@rc-component/trigger" "^1.5.0"
+    classnames "^2.2.1"
+    rc-util "^5.30.0"
+
 rc-picker@~3.6.1:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/rc-picker/-/rc-picker-3.6.2.tgz#68d13af7d240e792769a306ed6447e66e47040aa"

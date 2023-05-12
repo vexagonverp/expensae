@@ -1,4 +1,4 @@
-import { Layout } from 'antd';
+import { ConfigProvider, Layout } from 'antd';
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { REACT_ROUTE } from './constants';
 import { unAuthorize } from './feature/auth/authSlice';
 import { useAppSelector } from './hooks';
 import LoginRoute from './route/LoginRoute';
+import SelectFormIdRoute from './route/SelectFormIdRoute';
 import SubmitFormRoute from './route/SubmitFormRoute';
 
 const { Content } = Layout;
@@ -27,6 +28,7 @@ const AppRoute = () => {
     <Routes>
       <Route path={REACT_ROUTE.INDEX} element={<LoginRoute />} />
       <Route path={REACT_ROUTE.SUBMIT_FORM} element={<SubmitFormRoute />} />
+      <Route path={REACT_ROUTE.SELECT_FORM_ID} element={<SelectFormIdRoute />} />
     </Routes>
   );
 };
@@ -42,14 +44,22 @@ const App = () => {
   }, [isAuth]);
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Content>
-        <Router>
-          <AppRoute />
-        </Router>
-        <AppMenuDisplay />
-      </Content>
-    </Layout>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#13C2C2'
+        }
+      }}
+    >
+      <Layout style={{ minHeight: '100vh' }}>
+        <Content>
+          <Router>
+            <AppRoute />
+          </Router>
+          <AppMenuDisplay />
+        </Content>
+      </Layout>
+    </ConfigProvider>
   );
 };
 

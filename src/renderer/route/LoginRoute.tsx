@@ -1,5 +1,5 @@
 import { GoogleOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Card } from 'antd';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -31,15 +31,17 @@ const LoginRoute = () => {
   });
 
   return (
-    <Button
-      type="primary"
-      loading={authenticating}
-      disabled={authenticating}
-      icon={<GoogleOutlined />}
-      onClick={loginRequest}
-    >
-      Login
-    </Button>
+    <Card>
+      <Button
+        type="primary"
+        loading={authenticating}
+        disabled={authenticating}
+        icon={<GoogleOutlined />}
+        onClick={loginRequest}
+      >
+        Login
+      </Button>
+    </Card>
   );
 };
 
