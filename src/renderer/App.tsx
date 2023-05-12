@@ -44,13 +44,7 @@ const App = () => {
   }, [isAuth]);
 
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#13C2C2'
-        }
-      }}
-    >
+    <ConfigProvider>
       <Layout style={{ minHeight: '100vh' }}>
         <Content>
           <Router>
