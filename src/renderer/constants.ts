@@ -8,5 +8,5 @@ export const REACT_ROUTE = {
 
 export const CALENDER_YEAR_LIMIT = {
   MAX_YEAR: 4000,
-  MIN_YEAR: 1000
+  MIN_YEAR: 1900
 };

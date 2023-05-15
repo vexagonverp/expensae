@@ -1,20 +1,19 @@
-import { Card } from 'antd';
+import { Card, Calendar } from 'antd';
 import { useParams } from 'react-router-dom';
-import Calender from '../components/Calender';
-import type {} from 'date-fns';
 import { CALENDER_YEAR_LIMIT } from '../constants';
+import type { Dayjs } from 'dayjs';
 
 const SelectFormIdRoute = () => {
   const { formId } = useParams();
 
-  const disableYear = (date: Date) => {
-    const year = date.getFullYear();
+  const disableYear = (date: Dayjs) => {
+    const year = date.year();
     return year > CALENDER_YEAR_LIMIT.MAX_YEAR || year < CALENDER_YEAR_LIMIT.MIN_YEAR;
   };
 
   return (
     <Card title={formId}>
-      <Calender disabledDate={disableYear} />
+      <Calendar disabledDate={disableYear} />
     </Card>
   );
 };
