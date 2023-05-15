@@ -1,5 +1,6 @@
 import { sheets, sheets_v4 } from '@googleapis/sheets';
 import { inject, injectable } from 'inversify';
+import { GOOGLE_SHEET_CELL_LIMIT, GOOGLE_SHEET_CONSTANTS } from '../../constants';
 import TYPES from '../../inversify/types';
 import type { IGoogleOAuthService, IGoogleSheetService } from '../../inversify/interfaces';
 
@@ -18,6 +19,44 @@ export default class GoogleSheetService implements IGoogleSheetService {
         spreadsheetId: sheetId
       });
       return result.data;
+    } catch (_err) {
+      throw new Error();
+    }
+  }
+
+  async createTabSheet(sheetTitle: string, sheetIndex: number, sheetId: string) {
+    try {
+      await this.sheetClient.spreadsheets.batchUpdate({
+        auth: this.oAuthService.getAuthClient(),
+        spreadsheetId: sheetId,
+        requestBody: {
+          requests: [
+            {
+              addSheet: {
+                properties: {
+                  title: sheetTitle,
+                  sheetId: sheetIndex,
+                  gridProperties: {
+                    columnCount: GOOGLE_SHEET_CELL_LIMIT.COLUMN_LIMIT,
+                    rowCount: GOOGLE_SHEET_CELL_LIMIT.ROW_LIMIT
+                  }
+                }
+              }
+            },
+            {
+              pasteData: {
+                coordinate: {
+                  columnIndex: 0,
+                  rowIndex: 0,
+                  sheetId: sheetIndex
+                },
+                data: GOOGLE_SHEET_CONSTANTS.HEADER.join(GOOGLE_SHEET_CONSTANTS.DELIMITER),
+                delimiter: GOOGLE_SHEET_CONSTANTS.DELIMITER
+              }
+            }
+          ]
+        }
+      });
     } catch (_err) {
       throw new Error();
     }
