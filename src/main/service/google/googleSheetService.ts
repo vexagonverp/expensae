@@ -24,6 +24,21 @@ export default class GoogleSheetService implements IGoogleSheetService {
     }
   }
 
+  async getTabSheetValue(sheetTitle: string, sheetId: string) {
+    try {
+      const result = await this.sheetClient.spreadsheets.values.get({
+        auth: this.oAuthService.getAuthClient(),
+        spreadsheetId: sheetId,
+        range: `${sheetTitle}!${GOOGLE_SHEET_CONSTANTS.COLUMN[0]}1:${
+          GOOGLE_SHEET_CONSTANTS.COLUMN[GOOGLE_SHEET_CELL_LIMIT.COLUMN_LIMIT - 1]
+        }${GOOGLE_SHEET_CELL_LIMIT.ROW_LIMIT}`
+      });
+      return result;
+    } catch (_err) {
+      throw new Error();
+    }
+  }
+
   async createTabSheet(sheetTitle: string, sheetIndex: number, sheetId: string) {
     try {
       await this.sheetClient.spreadsheets.batchUpdate({
