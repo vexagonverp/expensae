@@ -24,6 +24,36 @@ export default class GoogleSheetService implements IGoogleSheetService {
     }
   }
 
+  async getTabSheetList(sheetId: string) {
+    try {
+      const result = await this.sheetClient.spreadsheets.get({
+        auth: this.oAuthService.getAuthClient(),
+        spreadsheetId: sheetId
+      });
+      let sheetList: sheets_v4.Schema$Sheet[] = [];
+      if (result.data.sheets) sheetList = result.data.sheets;
+      return sheetList;
+    } catch (_err) {
+      throw new Error();
+    }
+  }
+
+  async getTabSheet(sheetIndex: number, sheetId: string) {
+    try {
+      const result = await this.sheetClient.spreadsheets.get({
+        auth: this.oAuthService.getAuthClient(),
+        spreadsheetId: sheetId
+      });
+      let sheetResult: sheets_v4.Schema$Sheet[] = [];
+      if (result.data.sheets) {
+        sheetResult = result.data.sheets.filter((sheet) => sheet.properties?.index === sheetIndex);
+      }
+      return sheetResult;
+    } catch (_err) {
+      throw new Error();
+    }
+  }
+
   async getTabSheetValue(sheetTitle: string, sheetId: string) {
     try {
       const result = await this.sheetClient.spreadsheets.values.get({
