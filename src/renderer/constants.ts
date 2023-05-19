@@ -10,3 +10,7 @@ export const CALENDER_YEAR_LIMIT = {
   MAX_YEAR: 4000,
   MIN_YEAR: 1900
 };
+
+export const DAYJS_CONST = {
+  DAYJS_FORMAT: 'DD/MM/YYYY'
+};
