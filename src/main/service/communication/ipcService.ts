@@ -36,3 +36,13 @@ ipcMain.handle(ipcMsg.RendererMainRenderer.SHEET_ID, async (_event, payload) => 
   const result = await googleSheetService.getWorkSheet(sheetPayload.sheetId);
   return Promise.resolve(result);
 });
+
+ipcMain.handle(ipcMsg.RendererMainRenderer.SHEET_VALUE, async (_event, payload) => {
+  const sheetTitle: string = payload[0];
+  const sheetIndex: number = payload[1];
+  const sheetId: string = payload[2];
+  const sheetExist = await googleSheetService.getTabSheet(sheetIndex, sheetId);
+  if (!sheetExist.length) await googleSheetService.createTabSheet(sheetTitle, sheetIndex, sheetId);
+  const result = await googleSheetService.getTabSheetValue(sheetTitle, sheetId);
+  return Promise.resolve(result);
+});

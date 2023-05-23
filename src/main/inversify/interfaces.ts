@@ -191,4 +191,7 @@ export interface IElectronStore {
 
 export interface IGoogleSheetService {
   getWorkSheet(value: string): Promise<sheets_v4.Schema$Spreadsheet>;
+  getTabSheetValue(sheetTitle: string, sheetId: string): Promise<sheets_v4.Schema$ValueRange>;
+  getTabSheet(sheetIndex: number, sheetId: string): Promise<sheets_v4.Schema$Sheet[]>;
+  createTabSheet(sheetTitle: string, sheetIndex: number, sheetId: string): Promise<void>;
 }

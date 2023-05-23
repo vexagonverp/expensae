@@ -46,7 +46,9 @@ export default class GoogleSheetService implements IGoogleSheetService {
       });
       let sheetResult: sheets_v4.Schema$Sheet[] = [];
       if (result.data.sheets) {
-        sheetResult = result.data.sheets.filter((sheet) => sheet.properties?.index === sheetIndex);
+        sheetResult = result.data.sheets.filter(
+          (sheet) => sheet.properties?.sheetId === sheetIndex
+        );
       }
       return sheetResult;
     } catch (_err) {
@@ -63,7 +65,7 @@ export default class GoogleSheetService implements IGoogleSheetService {
           GOOGLE_SHEET_CONSTANTS.COLUMN[GOOGLE_SHEET_CELL_LIMIT.COLUMN_LIMIT - 1]
         }${GOOGLE_SHEET_CELL_LIMIT.ROW_LIMIT}`
       });
-      return result;
+      return result.data;
     } catch (_err) {
       throw new Error();
     }
